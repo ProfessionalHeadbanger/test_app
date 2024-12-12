@@ -9,16 +9,6 @@ class PhotoModel extends Photo {
       required super.shadowColor,
       required super.blurHash});
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'url': imageUrl,
-      'username': username,
-      'likes': likes,
-      'color': shadowColor,
-      'blur_hash': blurHash,
-    };
-  }
-
   factory PhotoModel.fromJson(Map<String, dynamic> map) {
     return PhotoModel(
       imageUrl: map['urls']['regular'] as String,

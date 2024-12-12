@@ -30,14 +30,16 @@ class PhotoTile extends StatelessWidget {
                   style: const TextStyle(
                       color: AppColors.secondaryText,
                       fontWeight: FontWeight.w700,
-                      fontSize: 12),
+                      fontSize: 12,
+                      fontFamily: 'Manrope'),
                 ),
                 Text(
                   "${photo.likes} likes",
                   style: const TextStyle(
                       color: AppColors.secondaryText,
                       fontWeight: FontWeight.w400,
-                      fontSize: 10),
+                      fontSize: 10,
+                      fontFamily: 'Manrope'),
                 )
               ],
             ),

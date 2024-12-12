@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:test_app/core/themes/colors.dart';
 import 'package:test_app/features/photolist/domain/entities/photo.dart';
@@ -14,30 +15,23 @@ class ListPage extends StatelessWidget {
         likes: 14,
         shadowColor: const Color(0xff000000),
         blurHash: "blurHash");
-
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverAppBar(
-            expandedHeight: 100,
-            floating: false,
-            pinned: true,
-            flexibleSpace: FlexibleSpaceBar(
-              title: const Text(
-                "Photos",
-                style: TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primaryText),
-              ),
-              centerTitle: false,
-              background: Container(
-                color: AppColors.primaryBackground,
-              ),
+    return CupertinoPageScaffold(
+      child: CustomScrollView(
+        slivers: <Widget>[
+          CupertinoSliverNavigationBar(
+            border: null,
+            backgroundColor: Colors.white.withOpacity(0.5),
+            largeTitle: const Text(
+              "Photos",
+              style: TextStyle(
+                  fontSize: 24,
+                  fontFamily: 'Manrope',
+                  fontWeight: FontWeight.w700,
+                  color: AppColors.primaryText),
             ),
           ),
           SliverPadding(
-            padding: const EdgeInsets.all(28.0),
+            padding: const EdgeInsets.all(27.0),
             sliver: SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                     (BuildContext context, int index) {
