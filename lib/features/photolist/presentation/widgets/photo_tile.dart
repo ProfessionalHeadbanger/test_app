@@ -1,4 +1,5 @@
 import 'package:flutter/widgets.dart';
+import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:test_app/core/themes/colors.dart';
 import 'package:test_app/features/photolist/domain/entities/photo.dart';
 
@@ -13,11 +14,10 @@ class PhotoTile extends StatelessWidget {
       borderRadius: BorderRadius.circular(20),
       child: Stack(
         children: [
-          Image.asset(
-            "assets/images/test_image.png",
-            fit: BoxFit.cover,
-            width: double.infinity,
-            height: double.infinity,
+          BlurHash(
+            hash: photo.blurHash,
+            imageFit: BoxFit.cover,
+            image: photo.imageUrl,
           ),
           Positioned(
             bottom: 12,
