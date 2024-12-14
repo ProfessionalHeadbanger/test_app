@@ -1,10 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:test_app/core/constants/contants.dart';
+import 'package:test_app/core/params/params.dart';
 import 'package:test_app/core/secrets/secrets.dart';
 import 'package:test_app/features/photolist/data/models/photo_model.dart';
 
 abstract interface class PhotosRemoteDataSource {
-  Future<List<PhotoModel>> getPageOfPhotos(int page);
+  Future<List<PhotoModel>> getPageOfPhotos(
+      {required PhotoPageParams photoPageParams});
 }
 
 class PhotosRemoteDataSourceImpl implements PhotosRemoteDataSource {
@@ -13,17 +15,19 @@ class PhotosRemoteDataSourceImpl implements PhotosRemoteDataSource {
   PhotosRemoteDataSourceImpl(this.dio);
 
   @override
-  Future<List<PhotoModel>> getPageOfPhotos(int page) async {
+  Future<List<PhotoModel>> getPageOfPhotos(
+      {required PhotoPageParams photoPageParams}) async {
     try {
       final response = await dio.get(
         AppConstants.baseUrl,
-        queryParameters: {'client_id': AppSecrets.clientId, 'page': page},
+        queryParameters: {
+          'client_id': AppSecrets.clientId,
+          'page': photoPageParams.page
+        },
       );
-      List<PhotoModel> photoList = [];
-      // Переделать, по-любому можно делать это умнее и удобнее, чем просто циклом
-      for (int i = 0; i < 10; i++) {
-        photoList.add(PhotoModel.fromJson(response.data[i]));
-      }
+      final photoList = (response.data as List)
+          .map((json) => PhotoModel.fromJson(json))
+          .toList();
 
       return photoList;
     } catch (e) {
