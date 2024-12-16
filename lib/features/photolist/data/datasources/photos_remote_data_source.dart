@@ -1,6 +1,5 @@
 import 'package:dio/dio.dart';
 import 'package:test_app/core/constants/contants.dart';
-import 'package:test_app/core/exceptions/exceptions.dart';
 import 'package:test_app/core/params/params.dart';
 import 'package:test_app/core/secrets/secrets.dart';
 import 'package:test_app/features/photolist/data/models/photo_model.dart';
@@ -18,21 +17,30 @@ class PhotosRemoteDataSourceImpl implements PhotosRemoteDataSource {
   @override
   Future<List<PhotoModel>> getPageOfPhotos(
       {required PhotoPageParams photoPageParams}) async {
-    final response = await dio.get(
-      AppConstants.baseUrl,
-      queryParameters: {
-        'client_id': AppSecrets.clientId,
-        'page': photoPageParams.page
-      },
-    );
-    if (response.statusCode == 200) {
+    try {
+      final response = await dio.get(
+        AppConstants.baseUrl,
+        queryParameters: {
+          'client_id': AppSecrets.clientId,
+          'page': photoPageParams.page
+        },
+      );
       final photoList = (response.data as List)
           .map((json) => PhotoModel.fromJson(json))
           .toList();
 
       return photoList;
-    } else {
-      throw ServerException();
+    } on DioException catch (e) {
+      if (e.response != null) {
+        print(e.response?.data);
+        print(e.response?.headers);
+        print(e.response?.requestOptions);
+
+        if (e.response?.statusCode == 404) return [];
+      } else {
+        print(e);
+      }
     }
+    return [];
   }
 }
