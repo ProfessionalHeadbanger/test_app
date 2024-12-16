@@ -1,8 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:test_app/core/extensions/extensions.dart';
 import 'package:test_app/features/photolist/domain/entities/photo.dart';
 import 'package:test_app/features/photolist/presentation/widgets/photo_tile.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ListPage extends StatelessWidget {
   const ListPage({super.key});
@@ -23,11 +23,11 @@ class ListPage extends StatelessWidget {
           CupertinoSliverNavigationBar(
             border: null,
             backgroundColor: Colors.white.withOpacity(0.5),
-            middle: Text(AppLocalizations.of(context)!.photos),
+            middle: Text(context.l10n.photos),
             alwaysShowMiddle: false,
             largeTitle: Padding(
               padding: const EdgeInsets.only(left: 10.0),
-              child: Text(AppLocalizations.of(context)!.photos),
+              child: Text(context.l10n.photos),
             ),
           ),
           SliverPadding(
