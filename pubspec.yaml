@@ -16,6 +16,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   intl: any
+  string_to_color: ^2.0.0
 
 dev_dependencies:
   flutter_test:

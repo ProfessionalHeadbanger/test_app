@@ -6,3 +6,7 @@ abstract class PhotolistEvent extends Equatable {
   @override
   List<Object> get props => [];
 }
+
+class GetNextPageOfPhotosEvent extends PhotolistEvent {
+  const GetNextPageOfPhotosEvent();
+}
