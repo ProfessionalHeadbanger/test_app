@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:string_to_color/string_to_color.dart';
 import 'package:test_app/features/photolist/domain/entities/photo.dart';
 
 class PhotoModel extends Photo {
@@ -9,22 +10,12 @@ class PhotoModel extends Photo {
       required super.shadowColor,
       required super.blurHash});
 
-  Map<String, dynamic> toJson() {
-    return <String, dynamic>{
-      'url': imageUrl,
-      'username': username,
-      'likes': likes,
-      'color': shadowColor,
-      'blur_hash': blurHash,
-    };
-  }
-
   factory PhotoModel.fromJson(Map<String, dynamic> map) {
     return PhotoModel(
       imageUrl: map['urls']['regular'] as String,
       username: map['user']['username'] as String,
       likes: map['likes'] as int,
-      shadowColor: map['color'] as Color,
+      shadowColor: ColorUtils.stringToColor(map['color']),
       blurHash: map['blur_hash'] as String,
     );
   }

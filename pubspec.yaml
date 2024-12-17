@@ -12,6 +12,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
+  flutter_blurhash: ^0.8.2
+  flutter_localizations:
+    sdk: flutter
+  intl: any
+  string_to_color: ^2.0.0
 
 dev_dependencies:
   flutter_test:
@@ -20,9 +25,9 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  generate: true
 
   assets:
-    - assets/images/
     - assets/fonts/
   fonts:
     - family: Manrope
