@@ -17,7 +17,6 @@ class PhotolistBloc extends Bloc<PhotolistEvent, PhotolistState> {
     on<GetNextPageOfPhotosEvent>(_onGetNextPageOfPhotosEvent);
   }
 
-  // слишком много запросов к серверу
   Future<void> _onGetNextPageOfPhotosEvent(
       GetNextPageOfPhotosEvent event, Emitter<PhotolistState> emit) async {
     if (_isLoading) return;

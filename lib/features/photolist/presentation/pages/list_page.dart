@@ -1,7 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:test_app/core/extensions/extensions.dart';
+import 'package:test_app/features/navigation/app_routes.dart';
 import 'package:test_app/features/photolist/presentation/bloc/photolist_bloc.dart';
 import 'package:test_app/features/photolist/presentation/widgets/photo_tile.dart';
 
@@ -99,7 +101,13 @@ class _ListPageState extends State<ListPage> {
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
                         final photo = state.photos[index];
-                        return PhotoTile(photo: photo);
+                        return PhotoTile(
+                          photo: photo,
+                          onTap: () {
+                            context.push(AppRoutes.detailPagePath,
+                                extra: photo);
+                          },
+                        );
                       },
                       childCount: state.photos.length,
                     ),
