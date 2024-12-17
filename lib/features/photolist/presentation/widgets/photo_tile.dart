@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
+import 'package:test_app/core/extensions/extensions.dart';
 import 'package:test_app/core/themes/colors.dart';
 import 'package:test_app/features/photolist/domain/entities/photo.dart';
 
@@ -10,41 +11,45 @@ class PhotoTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(20),
-      child: Stack(
-        children: [
-          BlurHash(
-            hash: photo.blurHash,
-            imageFit: BoxFit.cover,
-            image: photo.imageUrl,
-          ),
-          Positioned(
-            bottom: 12,
-            left: 16,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  photo.username,
-                  style: const TextStyle(
-                      color: AppColors.secondaryText,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 12,
-                      fontFamily: 'Manrope'),
-                ),
-                Text(
-                  "${photo.likes} likes",
-                  style: const TextStyle(
-                      color: AppColors.secondaryText,
-                      fontWeight: FontWeight.w400,
-                      fontSize: 10,
-                      fontFamily: 'Manrope'),
-                )
-              ],
-            ),
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        boxShadow: [
+          BoxShadow(
+            color: photo.shadowColor.withOpacity(0.2),
+            blurRadius: 32,
+            spreadRadius: 0,
           )
         ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(20),
+        child: Stack(
+          children: [
+            BlurHash(
+              hash: photo.blurHash,
+              imageFit: BoxFit.cover,
+              image: photo.imageUrl,
+            ),
+            Positioned(
+              bottom: 12,
+              left: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    photo.username,
+                    style: const TextStyle(color: AppColors.secondaryText),
+                  ),
+                  Text(context.l10n.likes(photo.likes),
+                      style: const TextStyle(
+                          color: AppColors.secondaryText,
+                          fontSize: 11,
+                          fontWeight: FontWeight.w400)),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

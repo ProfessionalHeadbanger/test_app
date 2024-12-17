@@ -1,0 +1,16 @@
+{
+    "photos": "Photos",
+    "@photos": {
+        "description": "Photos"
+    },
+    "likes": "{numberOfLikes} likes",
+    "@likes": {
+        "description": "Likes",
+        "placeholders": {
+            "numberOfLikes": {
+                "type": "int",
+                "example": "14"
+            }
+        }
+    }
+}
