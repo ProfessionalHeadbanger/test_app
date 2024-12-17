@@ -7,8 +7,8 @@ import 'package:test_app/features/photolist/data/datasources/photos_remote_data_
 import 'package:test_app/features/photolist/data/repositories/photo_repository_impl.dart';
 import 'package:test_app/features/photolist/domain/usecases/get_photos_usecase.dart';
 import 'package:test_app/features/photolist/presentation/bloc/photolist_bloc.dart';
-import 'package:test_app/features/photolist/presentation/pages/list_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:test_app/features/navigation/app_routing.dart';
 
 void main() async {
   final dio = Dio();
@@ -32,19 +32,19 @@ class MainApp extends StatelessWidget {
                 PhotolistBloc(getPhotosUseCase: getPhotosUseCase)
                   ..add(const GetNextPageOfPhotosEvent())),
       ],
-      child: const CupertinoApp(
-        localizationsDelegates: [
+      child: CupertinoApp.router(
+        localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate
         ],
-        supportedLocales: [
+        supportedLocales: const [
           Locale('en', 'US'),
         ],
         debugShowCheckedModeBanner: false,
         theme: AppTheme.cupertinoMainTheme,
-        home: ListPage(),
+        routerConfig: router,
       ),
     );
   }
