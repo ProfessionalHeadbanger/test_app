@@ -78,7 +78,6 @@ class _ListPageState extends State<ListPage> {
           );
         }
 
-        // здесь индикатор загрузки не на свое месте - должен быть посередине
         if (state is PhotoListLoaded) {
           return CupertinoPageScaffold(
             child: CustomScrollView(
@@ -99,17 +98,10 @@ class _ListPageState extends State<ListPage> {
                   sliver: SliverGrid(
                     delegate: SliverChildBuilderDelegate(
                       (BuildContext context, int index) {
-                        if (index >= state.photos.length) {
-                          return const Center(
-                              child: CupertinoActivityIndicator());
-                        }
-
                         final photo = state.photos[index];
                         return PhotoTile(photo: photo);
                       },
-                      childCount: state.hasReachedMax
-                          ? state.photos.length
-                          : state.photos.length + 1,
+                      childCount: state.photos.length,
                     ),
                     gridDelegate:
                         const SliverGridDelegateWithFixedCrossAxisCount(
@@ -120,6 +112,17 @@ class _ListPageState extends State<ListPage> {
                     ),
                   ),
                 ),
+                if (!state.hasReachedMax)
+                  const SliverToBoxAdapter(
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 18),
+                      child: Center(
+                        child: CupertinoActivityIndicator(
+                          radius: 12,
+                        ),
+                      ),
+                    ),
+                  ),
               ],
             ),
           );

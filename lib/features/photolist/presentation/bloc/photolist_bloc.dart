@@ -11,6 +11,7 @@ class PhotolistBloc extends Bloc<PhotolistEvent, PhotolistState> {
   final GetPhotosUseCase getPhotosUseCase;
 
   int _currentPage = 1;
+  bool _isLoading = false;
 
   PhotolistBloc({required this.getPhotosUseCase}) : super(PhotolistInitial()) {
     on<GetNextPageOfPhotosEvent>(_onGetNextPageOfPhotosEvent);
@@ -19,6 +20,8 @@ class PhotolistBloc extends Bloc<PhotolistEvent, PhotolistState> {
   // слишком много запросов к серверу
   Future<void> _onGetNextPageOfPhotosEvent(
       GetNextPageOfPhotosEvent event, Emitter<PhotolistState> emit) async {
+    if (_isLoading) return;
+    _isLoading = true;
     try {
       if (state is PhotolistInitial) {
         emit(PhotoListLoading());
@@ -40,6 +43,8 @@ class PhotolistBloc extends Bloc<PhotolistEvent, PhotolistState> {
       }
     } catch (e) {
       emit(PhotoListError(message: e.toString()));
+    } finally {
+      _isLoading = false;
     }
   }
 }
