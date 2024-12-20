@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:string_to_color/string_to_color.dart';
+import 'package:test_app/core/utils/utils.dart';
 import 'package:test_app/features/photolist/domain/entities/photo.dart';
 
 class PhotoModel extends Photo {
@@ -15,7 +15,7 @@ class PhotoModel extends Photo {
       imageUrl: map['urls']['regular'] as String,
       username: map['user']['username'] as String,
       likes: map['likes'] as int,
-      shadowColor: ColorUtils.stringToColor(map['color']),
+      shadowColor: Utils.stringToColor(map['color']),
       blurHash: map['blur_hash'] as String,
     );
   }

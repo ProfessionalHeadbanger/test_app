@@ -31,16 +31,7 @@ class PhotosRemoteDataSourceImpl implements PhotosRemoteDataSource {
 
       return photoList;
     } on DioException catch (e) {
-      if (e.response != null) {
-        print(e.response?.data);
-        print(e.response?.headers);
-        print(e.response?.requestOptions);
-
-        if (e.response?.statusCode == 404) return [];
-      } else {
-        print(e);
-      }
+      throw Exception("Network error: ${e.message}");
     }
-    return [];
   }
 }

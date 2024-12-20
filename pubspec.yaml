@@ -15,8 +15,8 @@ dependencies:
   flutter_blurhash: ^0.8.2
   flutter_localizations:
     sdk: flutter
+  go_router: ^14.6.2
   intl: any
-  string_to_color: ^2.0.0
 
 dev_dependencies:
   flutter_test:
