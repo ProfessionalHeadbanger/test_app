@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:test_app/core/extensions/extensions.dart';
-import 'package:test_app/core/themes/colors.dart';
 import 'package:test_app/features/photolist/domain/entities/photo.dart';
 
 class PhotoTile extends StatelessWidget {
@@ -43,13 +42,12 @@ class PhotoTile extends StatelessWidget {
                   children: [
                     Text(
                       photo.username,
-                      style: const TextStyle(color: AppColors.secondaryText),
+                      style: context.text.smallUsername,
                     ),
-                    Text(context.l10n.likes(photo.likes),
-                        style: const TextStyle(
-                            color: AppColors.secondaryText,
-                            fontSize: 11,
-                            fontWeight: FontWeight.w400)),
+                    Text(
+                      context.l10n.likes(photo.likes),
+                      style: context.text.smallLikes,
+                    ),
                   ],
                 ),
               )

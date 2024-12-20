@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:test_app/core/themes/theme.dart';
@@ -28,11 +29,11 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) =>
-                PhotolistBloc(getPhotosUseCase: getPhotosUseCase)
-                  ..add(const GetNextPageOfPhotosEvent())),
+            create: (context) => PhotoListBloc(
+                getPhotosUseCase: getPhotosUseCase, router: router)
+              ..add(const GetFirstPageOfPhotosEvent())),
       ],
-      child: CupertinoApp.router(
+      child: MaterialApp.router(
         localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
@@ -43,7 +44,7 @@ class MainApp extends StatelessWidget {
           Locale('en', 'US'),
         ],
         debugShowCheckedModeBanner: false,
-        theme: AppTheme.cupertinoMainTheme,
+        theme: AppTheme.mainTheme,
         routerConfig: router,
       ),
     );
