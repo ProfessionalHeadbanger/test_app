@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:test_app/core/themes/theme.dart';
@@ -7,8 +7,8 @@ import 'package:test_app/features/photolist/data/datasources/photos_remote_data_
 import 'package:test_app/features/photolist/data/repositories/photo_repository_impl.dart';
 import 'package:test_app/features/photolist/domain/usecases/get_photos_usecase.dart';
 import 'package:test_app/features/photolist/presentation/bloc/photolist_bloc.dart';
-import 'package:test_app/features/photolist/presentation/pages/list_page.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:test_app/features/navigation/app_routing.dart';
 
 void main() async {
   final dio = Dio();
@@ -28,23 +28,23 @@ class MainApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(
-            create: (context) =>
-                PhotolistBloc(getPhotosUseCase: getPhotosUseCase)
-                  ..add(const GetNextPageOfPhotosEvent())),
+            create: (context) => PhotoListBloc(
+                getPhotosUseCase: getPhotosUseCase, router: router)
+              ..add(const GetFirstPageOfPhotosEvent())),
       ],
-      child: const CupertinoApp(
-        localizationsDelegates: [
+      child: MaterialApp.router(
+        localizationsDelegates: const [
           AppLocalizations.delegate,
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,
           GlobalCupertinoLocalizations.delegate
         ],
-        supportedLocales: [
+        supportedLocales: const [
           Locale('en', 'US'),
         ],
         debugShowCheckedModeBanner: false,
-        theme: AppTheme.cupertinoMainTheme,
-        home: ListPage(),
+        theme: AppTheme.mainTheme,
+        routerConfig: router,
       ),
     );
   }
