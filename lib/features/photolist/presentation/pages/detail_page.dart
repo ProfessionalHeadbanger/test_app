@@ -16,12 +16,9 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      appBar: CupertinoNavigationBar(
-        border: null,
-        padding: const EdgeInsetsDirectional.only(start: 5),
+      appBar: AppBar(
         backgroundColor: AppColors.transparent,
-        automaticBackgroundVisibility: false,
-        enableBackgroundFilterBlur: false,
+        leadingWidth: 100,
         leading: TextButton.icon(
           onPressed: () {
             context
